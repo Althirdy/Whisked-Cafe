@@ -10,7 +10,7 @@ type AddModalProps_T = {
   closeDialog: () => void;
 };
 
-const Role = ["Cashier"];
+const Role = ["Cashier","Assistant Manager"];
 
 export default function AddEmployeeModal({
   isOpen,
