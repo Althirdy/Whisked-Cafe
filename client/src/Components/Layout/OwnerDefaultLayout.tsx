@@ -22,7 +22,8 @@ import { Auth_Logout } from "../../Pages/Auth/Auth_Util";
 function OwnerDefaultLayout() {
   const { user, token, setToken } = useStateContext();
   const location = useLocation();
-  if (!token && user?.role != "Owner") {
+  // && user?.role !== "Owner"
+  if (!token ) {
     return <Navigate to="/login" />;
   }
   const navigate = useNavigate();
