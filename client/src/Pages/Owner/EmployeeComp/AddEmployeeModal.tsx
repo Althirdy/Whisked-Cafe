@@ -4,20 +4,25 @@ import InputField from "../../../Components/InputField";
 import Modal from "../../../Components/Modal";
 import { Eye, EyeOff, UserPlus } from "lucide-react";
 import { AddingEmployee_T } from "../Employee_T";
+import { addEmployee_M } from "./Employee_Util";
+import toast from "react-hot-toast";
 
 type AddModalProps_T = {
   isOpen: boolean;
   closeDialog: () => void;
+  FetchEmployee: () => void;
 };
 
-const Role = ["Cashier","Assistant Manager"];
+const Role = ["Cashier", "Assistant Manager"];
 
 export default function AddEmployeeModal({
   isOpen,
   closeDialog,
+  FetchEmployee,
 }: AddModalProps_T) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [error, setError] = useState<any>();
   const [addEmployee, setAddEmployee] = useState<AddingEmployee_T>({
     fullName: "",
     email: "",
@@ -27,9 +32,27 @@ export default function AddEmployeeModal({
     confirm_password: "",
   });
 
-  const handleAddEmployee = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAddEmployee = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(addEmployee)
+    const result = await addEmployee_M(addEmployee);
+    if (!result.success) {
+      setError(result.errors);
+      console.log(result.errors);
+    } else {
+      setError(null);
+      setAddEmployee({
+        fullName: "",
+        email: "",
+        phoneNumber: "",
+        role: "",
+        password: "",
+        confirm_password: "",
+      });
+      toast.success("Employee Added Successfully!");
+      FetchEmployee();
+      closeDialog();
+      
+    }
   };
 
   return (
@@ -66,6 +89,10 @@ export default function AddEmployeeModal({
               setAddEmployee({ ...addEmployee, fullName: e.target.value })
             }
           />
+          {error?.fullName &&
+            error?.fullName.map((n, index) => {
+              return <DisplayError key={index} FieldError={n} />;
+            })}
           <InputField
             label="Email"
             value={addEmployee.email}
@@ -73,6 +100,10 @@ export default function AddEmployeeModal({
               setAddEmployee({ ...addEmployee, email: e.target.value })
             }
           />
+          {error?.email &&
+            error?.email.map((n, index) => {
+              return <DisplayError key={index} FieldError={n} />;
+            })}
           <InputField
             label="Phone No."
             value={addEmployee.phoneNumber}
@@ -81,6 +112,10 @@ export default function AddEmployeeModal({
               setAddEmployee({ ...addEmployee, phoneNumber: e.target.value })
             }
           />
+          {error?.phoneNumber &&
+            error?.phoneNumber.map((n, index) => {
+              return <DisplayError key={index} FieldError={n} />;
+            })}
           {/* Password */}
           <div className="space-y-2">
             <label
@@ -112,6 +147,10 @@ export default function AddEmployeeModal({
                 )}
               </button>
             </div>
+            {error?.password &&
+              error?.password.map((n, index) => {
+                return <DisplayError key={index} FieldError={n} />;
+              })}
           </div>
           {/* Confirm Password */}
           <div className="space-y-2">
@@ -147,6 +186,10 @@ export default function AddEmployeeModal({
                 )}
               </button>
             </div>
+            {error?.confirm_password &&
+              error?.confirm_password.map((n, index) => {
+                return <DisplayError key={index} FieldError={n} />;
+              })}
           </div>
 
           {/* Actions */}
@@ -168,5 +211,14 @@ export default function AddEmployeeModal({
         </form>
       </Modal>
     </div>
+  );
+}
+
+function DisplayError({ FieldError }: { FieldError: string }) {
+  return (
+    <>
+      <span className="text-red-600 text-xs">{FieldError}</span>
+      <br />
+    </>
   );
 }

@@ -2,6 +2,8 @@ import { Eye, EyeOff, UserPlus } from "lucide-react";
 import Modal from "../../../Components/Modal";
 import { useState } from "react";
 import { Employee_T } from "../Employee_T";
+import { UpdateEmployee } from "./Employee_Util";
+import toast from "react-hot-toast";
 type AddModalProps_T = {
   isOpen: boolean;
   closeDialog: () => void;
@@ -21,9 +23,25 @@ function UpdateEmployeeModal({
     password: false,
     confirm_password: false,
   });
+  const [error, setError] = useState<string[]>();
 
-  const handleAddEmployee = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAddEmployee = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const result = await UpdateEmployee({
+      id: employee.id,
+      password: formData.password,
+      confirm_password: formData.confirm_password,
+    });
+    if (!result.success) {
+      setError(result.message.errors.password);
+    } else {
+      toast.success("Password Updated Successfully!");
+      setShowPassword({
+        password: false,
+        confirm_password: false,
+      });
+      closeDialog()
+    }
   };
 
   return (
@@ -37,7 +55,9 @@ function UpdateEmployeeModal({
               <UserPlus size={20} />
               Update Employee
             </div>
-            <p className="text-sm text-gray-500"><span className="italic">{employee.fullName}'s</span> Password.</p>
+            <p className="text-sm text-gray-500">
+              <span className="italic">{employee.fullName}'s</span> Password.
+            </p>
           </div>
         }
       >
@@ -78,6 +98,16 @@ function UpdateEmployeeModal({
               </button>
             </div>
           </div>
+          {error &&
+            error.map((n, index) => (
+              <>
+                <span key={index} className="text-xs text-red-600">
+                  {n}
+                </span>
+                <br />
+              </>
+            ))}
+
           {/* Confirm Password */}
           <div className="space-y-2">
             <label

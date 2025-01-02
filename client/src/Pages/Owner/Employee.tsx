@@ -1,37 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputField from "../../Components/InputField";
 import { UserPlus } from "lucide-react";
 import EmployeeList from "./EmployeeComp/EmployeeList";
 import AddEmployeeModal from "./EmployeeComp/AddEmployeeModal";
 import { Employee_T } from "./Employee_T";
-
-const employeeData: Employee_T[] = [
-  {
-    id: 1,
-    fullName: "Bj Cabaat",
-    email: "Bj@whiskedcafe.com",
-    role: "Cashier",
-    phoneNumber: "+639090323355",
-  },
-  {
-    id: 2,
-    fullName: "Jin Failana",
-    email: "Jin@whiskedcafe.com",
-    role: "Cashier",
-    phoneNumber: "+639090323355",
-  },
-];
+import { FetchEmployees } from "./EmployeeComp/Employee_Util";
 
 function Employee() {
   const [query, setQuery] = useState<string>("");
   const [isOpen, setIsOpen] = useState(false);
+  const [employeeData, setEmployeeData] = useState<Employee_T[]>();
 
+  /**
+   *
+   * @Method Fetching all the Employee
+   * @param Url - when the query is not empty it will pass as a param in the query in backend
+   */
+  const FetchEmployee = async (Url?: string) => {
+    const res = await FetchEmployees(Url);
+    if (res.success) {
+      setEmployeeData(res.data.data);
+    } else {
+      setEmployeeData([]);
+    }
+  };
+
+  useEffect(() => {
+    const url = query
+      ? `${import.meta.env.VITE_BACKEND_URL}/v1/employee?query=${query}`
+      : undefined;
+
+    FetchEmployee(url);
+  }, [query]);
   return (
     <div className="space-y-4">
       <div className="md:flex space-y-2 justify-between items-center">
         <div className="flex flex-col gap-2 md:w-[50%]">
           <h1 className="font-semibold text-md">
-            Employee List ({employeeData.length})
+            Employee List ({employeeData?.length})
           </h1>
           <InputField
             value={query}
@@ -48,9 +54,17 @@ function Employee() {
         </button>
       </div>
       {/* EmployeeList */}
-      <EmployeeList employee={employeeData} />
+      {employeeData ? (
+        <EmployeeList employee={employeeData} FetchEmployee={FetchEmployee} />
+      ) : (
+        "Loading..."
+      )}
       {/* AddingModal */}
-      <AddEmployeeModal isOpen={isOpen} closeDialog={() => setIsOpen(false)} />
+      <AddEmployeeModal
+        isOpen={isOpen}
+        FetchEmployee={FetchEmployee}
+        closeDialog={() => setIsOpen(false)}
+      />
       {/* UpdaingModal */}
     </div>
   );

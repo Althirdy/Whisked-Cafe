@@ -15,20 +15,34 @@ import RemoveEmployeeModal from "./RemoveEmployeeModal";
 
 interface EmployeeList_I {
   employee: Employee_T[];
+  FetchEmployee: () => void;
 }
 
-export default function EmployeeList({ employee }: EmployeeList_I) {
+export default function EmployeeList({
+  employee,
+  FetchEmployee,
+}: EmployeeList_I) {
   return (
     <div className="grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
       {employee &&
         employee.map((data) => (
-          <EmployeeCard employee_data={data} key={data.id} />
+          <EmployeeCard
+            employee_data={data}
+            key={data.id}
+            FetchEmployee={FetchEmployee}
+          />
         ))}
     </div>
   );
 }
 
-function EmployeeCard({ employee_data }: { employee_data: Employee_T }) {
+function EmployeeCard({
+  employee_data,
+  FetchEmployee,
+}: {
+  employee_data: Employee_T;
+  FetchEmployee: () => void;
+}) {
   const [isOpen, setIsOpen] = useState({
     updateModal: false,
     removeModal: false,
@@ -57,7 +71,10 @@ function EmployeeCard({ employee_data }: { employee_data: Employee_T }) {
               </button>
             </MenuItem>
             <MenuItem>
-              <button  onClick={() => setIsOpen({ ...isOpen, removeModal: true })} className="flex items-center gap-2 pl-4 text-md  text-gray-700 font-medium hover:bg-gray-100 w-full p-2 rounded-md">
+              <button
+                onClick={() => setIsOpen({ ...isOpen, removeModal: true })}
+                className="flex items-center gap-2 pl-4 text-md  text-gray-700 font-medium hover:bg-gray-100 w-full p-2 rounded-md"
+              >
                 <TrashIcon className="size-4 fill-white/30" />
                 Remove
               </button>
@@ -74,6 +91,7 @@ function EmployeeCard({ employee_data }: { employee_data: Employee_T }) {
       )}
       {isOpen.removeModal && (
         <RemoveEmployeeModal
+          FetchEmployee={FetchEmployee}
           isOpen={isOpen.removeModal}
           closeDialog={() => setIsOpen({ ...isOpen, removeModal: false })}
           employee={employee_data}
