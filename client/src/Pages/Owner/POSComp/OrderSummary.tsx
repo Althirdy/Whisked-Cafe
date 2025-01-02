@@ -18,6 +18,9 @@ export default function OrderSummary({ ...props }: OrderSummaryModal_T) {
         <div className="space-y-2 max-h-[60vh] overflow-auto pr-2 OrderSummaryScroll">
           <OrderItem />
         </div>
+        <div className="pt-4 border-t">
+          <h3 className="text-gray-800">Total Price: ₱ 150.00</h3>
+        </div>
         <button className="bg-brown-600 text-white w-full p-2 rounded-md hover:bg-opacity-95">
           Proceed to Payment
         </button>

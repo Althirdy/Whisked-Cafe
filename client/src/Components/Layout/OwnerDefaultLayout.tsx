@@ -1,5 +1,11 @@
 import React from "react";
-import { Link, Navigate, Outlet, useLocation } from "react-router-dom";
+import {
+  Link,
+  Navigate,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { useStateContext } from "../../Contexts/ContextProvider";
 import Logo from "@/Assets/login_logo.png";
 import {
@@ -11,14 +17,23 @@ import {
   Logs,
   User,
 } from "lucide-react";
+import { Auth_Logout } from "../../Pages/Auth/Auth_Util";
 
 function OwnerDefaultLayout() {
-  const { user, token } = useStateContext();
+  const { user, token, setToken } = useStateContext();
   const location = useLocation();
-
-  if (!token) {
+  if (!token && user?.role != "Owner") {
     return <Navigate to="/login" />;
   }
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const logout = await Auth_Logout();
+    if (logout.status) {
+      setToken(null);
+      navigate("/login");
+    }
+  };
 
   return (
     <div className="min-h-screen flex bg-gray-100">
@@ -55,11 +70,13 @@ function OwnerDefaultLayout() {
             icon={<User size={20} />}
             label="Employee"
           />
-          <SideBarLink
-            href="/logout"
-            icon={<LogOut size={20} />}
-            label="Logout"
-          />
+          <button
+            onClick={handleLogout}
+            className={`flex gap-4 font-medium text-sm items-center  p-2 rounded-md w-full text-gray-500 hover:bg-brown-100`}
+          >
+            <LogOut size={20} />
+            Logout
+          </button>
         </ul>
       </aside>
       <main className="flex-1 ">
@@ -98,9 +115,7 @@ function getTitle(pathname: string) {
       return (
         <div>
           <h1 className="text-brown-600 font-bold text-xl">Employee</h1>
-          <span className="text-gray-600 text-sm">
-            Manage your employee
-          </span>
+          <span className="text-gray-600 text-sm">Manage your employee</span>
         </div>
       );
     case "/reports":
@@ -127,7 +142,6 @@ function SideBarLink({
   label: string;
 }) {
   const location = useLocation();
-
   const isActive = location.pathname === href;
   return (
     <Link

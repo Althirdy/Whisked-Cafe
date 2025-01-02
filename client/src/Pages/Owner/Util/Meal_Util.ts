@@ -10,7 +10,12 @@ export const getMealCategory = async (): Promise<mealCategory[]> => {
 
   try {
     const response = await axios.get<mealCategory[]>(
-      "http://127.0.0.1:8000/api/v1/mealCategory"
+      `${import.meta.env.VITE_BACKEND_URL}/v1/mealCategory`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+        },
+      }
     );
     categories = response.data;
   } catch (error) {

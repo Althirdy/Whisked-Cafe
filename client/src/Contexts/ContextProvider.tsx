@@ -4,9 +4,11 @@ import {
   ReactNode,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from "react";
 import { Auth_T } from "../Pages/Auth/Auth_T";
+import axios from "axios";
 
 type StateContext_T = {
   user: Auth_T | null;
@@ -27,15 +29,10 @@ export const StateContext = createContext<StateContext_T>({
 });
 
 export const ContextProvider = ({ children }: ContextProviderProps) => {
-  // const dummy_account: Auth_T = {
-  //   fullname: "Jayson Derulo",
-  //   phone: "09301420649",
-  //   email: "althirdysanger@gmail.com",
-  // };
-
   const [user, setUser] = useState<Auth_T | null>(null);
-  const [token, _setToken] = useState<string | null>(null);
-
+  const [token, _setToken] = useState<string | null>(
+    localStorage.getItem("ACCESS_TOKEN")
+  );
   const setToken = (token: string | null) => {
     _setToken(token);
     if (token) {
@@ -44,6 +41,31 @@ export const ContextProvider = ({ children }: ContextProviderProps) => {
       localStorage.removeItem("ACCESS_TOKEN");
     }
   };
+  // Watch for token changes and fetch the user
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (token) {
+        try {
+          const response = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/v1/user`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`, // Attach the token in the header
+              },
+            }
+          );
+          setUser(response.data.data); // Set the user data
+        } catch (error) {
+          console.error("Error fetching user:", error);
+          setUser(null); // If error occurs, clear the user data
+        }
+      } else {
+        setUser(null);
+      }
+    };
+
+    fetchUser();
+  }, [token]);
 
   return (
     <StateContext.Provider

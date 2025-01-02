@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "@/Assets/login_logo.png";
 import { login } from "./Auth_T";
+import { Auth_Login } from "./Auth_Util";
+import toast from "react-hot-toast";
+import { useStateContext } from "../../Contexts/ContextProvider";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -10,11 +13,20 @@ export default function Login() {
     email: "",
     password: "",
   });
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const { setToken } = useStateContext();
+  const [error, setError] = useState<any>();
+  const navigate = useNavigate();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Add your login logic here
-    console.log("Login submitted:", formData);
+
+    const result = await Auth_Login(formData);
+    if (!result.success) {
+      setError(result.message);
+      error?.invalid && toast.error(error?.invalid);
+    } else {
+      setToken(result.token);
+      navigate("/dashboard");
+    }
   };
 
   return (
@@ -55,6 +67,9 @@ export default function Login() {
                     setFormData({ ...formData, email: e.target.value })
                   }
                 />
+                <span className="text-xs font-semibold text-red-600">
+                  {error?.errors?.email && error?.errors?.email}
+                </span>
               </div>
 
               <div className="space-y-2">
@@ -87,6 +102,9 @@ export default function Login() {
                     )}
                   </button>
                 </div>
+                <span className="text-xs font-semibold text-red-600">
+                  {error?.errors?.password && error?.errors?.password}
+                </span>
               </div>
 
               <div className="text-right">
