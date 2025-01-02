@@ -13,7 +13,7 @@ class MealCategory extends Seeder
      */
     public function run(): void
     {
-        $categories = ["Hot Coffee","Iced Coffee","Non-Coffee","Matcha Edition","Premium","Pastry"];
+        $categories = ["Hot Coffee","Iced Coffee","Non-Coffee","Matcha Edition","Pastry"];
 
         foreach($categories as $category){
             DB::table('meal_categories')->insert([

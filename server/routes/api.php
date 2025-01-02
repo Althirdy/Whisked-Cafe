@@ -9,7 +9,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/v1/mealCategory',function() {
-    $categories = DB::table('meal_categories')->pluck('category');
-
+    $categories = DB::table('meal_categories')->select('id', 'category')->get();
     return response()->json($categories);
 });

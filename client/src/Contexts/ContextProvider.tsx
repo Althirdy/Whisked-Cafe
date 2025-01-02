@@ -34,7 +34,7 @@ export const ContextProvider = ({ children }: ContextProviderProps) => {
   // };
 
   const [user, setUser] = useState<Auth_T | null>(null);
-  const [token, _setToken] = useState<string | null>("233");
+  const [token, _setToken] = useState<string | null>(null);
 
   const setToken = (token: string | null) => {
     _setToken(token);

@@ -1,14 +1,20 @@
 [
     {
-        "mealName": "Amerikano",
-        "mealPrice": 99.00,
-        "mealCategory": "",
-        "imagePath": "amerikano.png"
+        "mealName": "Spanish Latte",
+        "mealPrice": {
+            "12Oz": 45.00,
+            "16Oz": 79.00,
+            "22Oz": 99.00
+        },
+        "mealCategory": 2,
+        "imagePath": "spanish_latte.png"
     },
     {
-        "mealName": "Black Coffee",
-        "mealPrice": 99.00,
-        "mealCategory": "",
-        "imagePath": "black_coffee.png"
+        "mealName": "Crossini",
+        "mealPrice": {
+            "price": 100.00
+        },
+        "mealCategory": 6,
+        "imagePath": "crossini.png"
     }
 ]

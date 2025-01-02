@@ -7,12 +7,13 @@ import Dashboard from "../Pages/Owner/Dashboard";
 import Pos from "../Pages/Owner/Pos";
 import Employee from "../Pages/Owner/Employee";
 import Reports from "../Pages/Owner/Reports";
+import Home from "../Pages/Home";
 
 const Router = () => {
   return (
     <Routes>
       <Route element={<GuestLayout />}>
-        <Route path="/" element={<h1>Hello</h1>} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Route>

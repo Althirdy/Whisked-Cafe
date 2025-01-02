@@ -1,10 +1,9 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "@/Assets/login_logo.png";
 
 function Navbar() {
   return (
-    <div className="sticky top-0 z-50 w-full border-b bg-white">
+    <div className="sticky top-0 z-5 w-full border-b bg-white">
       <nav className="container mx-auto flex items-center justify-between px-4 py-3">
         <Link to="/" className="flex items-center gap-2">
           <img src={Logo} alt="Whisked logo" className="h-10" />
@@ -22,9 +21,9 @@ function Navbar() {
           <Link to="/menu" className="text-brown-600 hover:text-brown-800">
             Menu
           </Link>
-          <Link to="/about" className="text-brown-600 hover:text-brown-800">
+          {/* <Link to="/about" className="text-brown-600 hover:text-brown-800">
             About
-          </Link>
+          </Link> */}
           <Link to="/login">
             <button className="rounded-md bg-brown-600 px-4 py-2 text-white hover:bg-brown-700">
               Login

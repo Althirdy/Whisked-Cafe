@@ -2,12 +2,13 @@ import React from "react";
 import { Link, Navigate, Outlet } from "react-router-dom";
 import Navbar from "../Navbar";
 import { useStateContext } from "../../Contexts/ContextProvider";
+import Footer from "../Footer";
 
 function GuestLayout() {
   const { user, token } = useStateContext();
 
   if (token) {
-    return <Navigate to="/dashboard"  />
+    return <Navigate to="/dashboard" />;
   }
 
   return (
@@ -16,6 +17,7 @@ function GuestLayout() {
       <main className="flex-1">
         <Outlet />
       </main>
+      <Footer />
     </div>
   );
 }
