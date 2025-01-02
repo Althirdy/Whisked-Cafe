@@ -1,0 +1,14 @@
+[
+    {
+        "mealName": "Amerikano",
+        "mealPrice": 99.00,
+        "mealCategory": "",
+        "imagePath": "amerikano.png"
+    },
+    {
+        "mealName": "Black Coffee",
+        "mealPrice": 99.00,
+        "mealCategory": "",
+        "imagePath": "black_coffee.png"
+    }
+]

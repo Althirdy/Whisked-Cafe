@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import InputField from "../../Components/InputField";
 import { Download } from "lucide-react";
 import DatePicker from "react-datepicker";
@@ -7,7 +7,7 @@ import ReportsList from "./ReportsComp/ReportsList";
 
 function Reports() {
   const [query, setQuery] = useState("");
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState<Date | null>(new Date());
 
   return (
     <div>
