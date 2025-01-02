@@ -1,223 +1,223 @@
 [
     {
         "mealName": "Spanish Latte",
-        "mealPrice": {
+        "mealPrices": {
             "12oz": 45.00,
             "16oz": 79.00,
             "22oz": 99.00
         },
         "mealCategory": 2,
-        "imagePath": "spanish_latte.png"
+        "image": "spanish_latte.png"
     },
     {
         "mealName":"Amerikano",
-        "mealPrice": {
+        "mealPrices": {
             "12oz": 45.00,
             "16oz": 79.00,
             "22oz": 99.00
         },
         "mealCategory": 2,
-        "imagePath": "amerikano.png"
+        "image": "amerikano.png"
     
     },
     {
         "mealName": "Capuccino",
-        "mealPrice": {
+        "mealPrices": {
             "12oz": 49.00,
             "16oz": 89.00,
             "22oz": 109.00
         },
         "mealCategory": 2,
-        "imagePath": "iced_capuccino.png"
+        "image": "iced_capuccino.png"
     },
     {
         "mealName": "Vanilla Latte",
-        "mealPrice": {
+        "mealPrices": {
             "12oz": 45.00,
             "16oz": 79.00,
             "22oz": 99.00
         },
         "mealCategory": 2,
-        "imagePath": "iced_latte.png"
+        "image": "iced_latte.png"
     },
     {
         "mealName": "Caramel",
-        "mealPrice": {
+        "mealPrices": {
             "12oz": 45.00,
             "16oz": 79.00,
             "22oz": 99.00
         },
         "mealCategory": 2,
-        "imagePath": "caramel.png"
+        "image": "caramel.png"
     },
     {
         "mealName": "Crossini",
-        "mealPrice": {
+        "mealPrices": {
             "price": 100.00
         },
         "mealCategory": 5,
-        "imagePath": "crossini.png"
+        "image": "crossini.png"
     },
     {
         "mealName": "White Chocolate Chip",
-        "mealPrice": {
+        "mealPrices": {
             "price": 100.00
         },
         "mealCategory": 5,
-        "imagePath": "white_choco_chip.png"
+        "image": "white_choco_chip.png"
     },
     {
         "mealName": "Red Velvet Cookie",
-        "mealPrice": {
+        "mealPrices": {
             "price": 100.00
         },
         "mealCategory": 5,
-        "imagePath": "red_velvet_cookie.png"
+        "image": "red_velvet_cookie.png"
     },
     {
         "mealName": "Hotdog Bun",
-        "mealPrice": {
+        "mealPrices": {
             "price": 100.00
         },
         "mealCategory": 5,
-        "imagePath": "hotdog_bun.png"
+        "image": "hotdog_bun.png"
     },
     {
         "mealName": "Dark Chocolate Chip",
-        "mealPrice": {
+        "mealPrices": {
             "price": 100.00
         },
         "mealCategory": 5,
-        "imagePath": "dark_choco_chip.png"
+        "image": "dark_choco_chip.png"
     },
     {
         "mealName": "Capuccino",
-        "mealPrice": {
+        "mealPrices": {
             "8oz": 59.00
         },
         "mealCategory": 1,
-        "imagePath": "capuccino.png"
+        "image": "capuccino.png"
     },
     {
         "mealName": "Vanilla",
-        "mealPrice": {
+        "mealPrices": {
             "8oz": 59.00
         },
         "mealCategory": 1,
-        "imagePath": "vanilla.png"
+        "image": "vanilla.png"
     },
     {
         "mealName": "Brewed Coffee",
-        "mealPrice": {
+        "mealPrices": {
             "8oz": 45.00
         },
         "mealCategory": 1,
-        "imagePath": "brewed.png"
+        "image": "brewed.png"
     },
     {
         "mealName": "Hot Chocolate",
-        "mealPrice": {
+        "mealPrices": {
             "8oz": 50.00
         },
         "mealCategory": 1,
-        "imagePath": "choco.png"
+        "image": "choco.png"
     },
     {
         "mealName": "Hazelnut",
-        "mealPrice": {
+        "mealPrices": {
             "8oz": 59.00
         },
         "mealCategory": 1,
-        "imagePath": "hazelnut.png"
+        "image": "hazelnut.png"
     },
     {
         "mealName": "Matcha Latte",
-        "mealPrice": {
+        "mealPrices": {
             "12oz": 49.00,
             "16oz": 89.00,
             "22oz": 99.00
         },
         "mealCategory": 4,
-        "imagePath": "matcha_latte.png"
+        "image": "matcha_latte.png"
     },
     {
         "mealName": "Kiwi Matcha",
-        "mealPrice": {
+        "mealPrices": {
             "12oz": 59.00,
             "16oz": 89.00,
             "22oz": 109.00
         },
         "mealCategory": 4,
-        "imagePath": "matcha.png"
+        "image": "matcha.png"
     },
     {
         "mealName": "Blueberry Matcha",
-        "mealPrice": {
+        "mealPrices": {
             "12oz": 59.00,
             "16oz": 89.00,
             "22oz": 109.00
         },
         "mealCategory": 4,
-        "imagePath": "blueberry_matcha.png"
+        "image": "blueberry_matcha.png"
     },
     {
         "mealName": "Strawberry Matcha",
-        "mealPrice": {
+        "mealPrices": {
             "12oz": 59.00,
             "16oz": 89.00,
             "22oz": 109.00
         },
         "mealCategory": 4,
-        "imagePath": "strawberry_matcha.png"
+        "image": "strawberry_matcha.png"
     },
     {
         "mealName": "Kiwi Latte",
-        "mealPrice": {
+        "mealPrices": {
             "12oz": 45.00,
             "16oz": 79.00,
             "22oz": 89.00
         },
         "mealCategory": 3,
-        "imagePath": "latte_kiwi.png"
+        "image": "latte_kiwi.png"
     },
     {
         "mealName": "Chocolate Latte",
-        "mealPrice": {
+        "mealPrices": {
             "12oz": 49.00,
             "16oz": 79.00,
             "22oz": 89.00
         },
         "mealCategory": 3,
-        "imagePath": "latte_choco.png"
+        "image": "latte_choco.png"
     },
     {
         "mealName": "Mango Latte",
-        "mealPrice": {
+        "mealPrices": {
             "12oz": 45.00,
             "16oz": 79.00,
             "22oz": 99.00
         },
         "mealCategory": 3,
-        "imagePath": "latte_mango.png"
+        "image": "latte_mango.png"
     },
     {
         "mealName": "Oreo Latte",
-        "mealPrice": {
+        "mealPrices": {
             "12oz": 59.00,
             "16oz": 89.00,
             "22oz": 109.00
         },
         "mealCategory": 3,
-        "imagePath": "latte_oreo.png"
+        "image": "latte_oreo.png"
     },
     {
         "mealName": "Strawberry Latte",
-        "mealPrice": {
+        "mealPrices": {
             "12oz": 49.00,
             "16oz": 89.00,
             "22oz": 99.00
         },
         "mealCategory": 3,
-        "imagePath": "latte_strawberry.png"
+        "image": "latte_strawberry.png"
     }
 ]
