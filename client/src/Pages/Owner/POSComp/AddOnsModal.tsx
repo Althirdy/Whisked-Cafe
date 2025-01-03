@@ -1,12 +1,9 @@
 import { RadioGroup } from "@headlessui/react";
 import Modal from "../../../Components/Modal";
 import { useState } from "react";
-
-const sizes = [
-  { name: "12oz", price: 50 },
-  { name: "16oz", price: 60 },
-  { name: "22oz", price: 80 },
-];
+import { addOns, Meal_T, PosMealOrder, price } from "./POS_T";
+import { usePosStateContext } from "../../../Contexts/POSContextProvider";
+import toast from "react-hot-toast";
 
 const addOnOptions = [
   { name: "Espresso Shot", price: 20 },
@@ -20,18 +17,57 @@ const sugarLevels = ["100%", "70%", "50%", "30%", "No Sugar"];
 type AddOnsModalProps_T = {
   isOpen: boolean;
   onClose: () => void;
+  mealPrices: price[];
+  meal: Meal_T;
 };
 
-export default function AddOnsModal({ isOpen, onClose }: AddOnsModalProps_T) {
-  const [selectedSize, setSelectedSize] = useState("12oz");
-  const [addOns, setAddOns] = useState<Object[]>([]);
+export default function AddOnsModal({
+  isOpen,
+  onClose,
+  mealPrices,
+  meal,
+}: AddOnsModalProps_T) {
+  const [selectedSize, setSelectedSize] = useState(mealPrices[0]);
+  const [addOns, setAddOns] = useState<addOns[]>([]);
   const [sugarLevel, setSugarLevel] = useState("Default (100%)");
+  // Getting the useContext
+  const { posOrder, setposOrder } = usePosStateContext();
+  /**
+   *
+   * @param addon addOns that is selected and the price of it
+   * @handleAddOnToggle handle the changes in the addOns array
+   */
 
-  const handleAddOnToggle = (addon: Object) => {
+  const handleAddOnToggle = (addon: addOns) => {
     setAddOns((prev) =>
       prev.includes(addon) ? prev.filter((a) => a !== addon) : [...prev, addon]
     );
   };
+  /**
+   * @handlePlaceOrder handling the order and adding it to the cart
+   */
+  const handlePlaceOrder = () => {
+    const totalPrice =
+      selectedSize.price + addOns.reduce((sum, addOn) => sum + addOn.price, 0);
+    const PosMeal: PosMealOrder = {
+      mealPrice: selectedSize,
+      addOns: addOns,
+      mealName: meal.mealName,
+      id: meal.id,
+      sugarLevel: sugarLevel,
+      quantity: 1,
+      totalPrice: totalPrice,
+      mealOrderId: (posOrder?.meals?.length || 0) + 1,
+      originalPrice: totalPrice,
+      mealCategory: meal.mealCategory
+    };
+    setposOrder(PosMeal);
+    toast.success("Order Added to cart!", {
+      style: { backgroundColor: "#8B4513", color: "#ffffff" },
+    });
+    onClose();
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={<AddOnsModalTitle />}>
       <div>
@@ -39,10 +75,10 @@ export default function AddOnsModal({ isOpen, onClose }: AddOnsModalProps_T) {
           <h4 className="text-sm font-medium mb-2">Size</h4>
           <RadioGroup value={selectedSize} onChange={setSelectedSize}>
             <div className="space-y-1">
-              {sizes.map((size) => (
+              {mealPrices.map((size) => (
                 <RadioGroup.Option
-                  key={size.name}
-                  value={size.name}
+                  key={size.size}
+                  value={size}
                   className={({ checked }) =>
                     `${checked ? "text-brown-800" : "text-gray-600"}
                               relative flex cursor-pointer items-center justify-between p-2 focus:outline-none`
@@ -63,7 +99,7 @@ export default function AddOnsModal({ isOpen, onClose }: AddOnsModalProps_T) {
                             <div className="rounded-full bg-brown-600 w-2 h-2" />
                           )}
                         </div>
-                        <span className="text-md">{size.name}</span>
+                        <span className="text-md">{size.size}</span>
                       </div>
                       <span className="text-sm">₱ {size.price}</span>
                     </>
@@ -85,8 +121,8 @@ export default function AddOnsModal({ isOpen, onClose }: AddOnsModalProps_T) {
                 <div className="flex items-center">
                   <input
                     type="checkbox"
-                    checked={addOns.includes(addon.name)}
-                    onChange={() => handleAddOnToggle(addon.name)}
+                    checked={addOns.includes(addon)}
+                    onChange={() => handleAddOnToggle(addon)}
                     className="rounded border-gray-300 text-brown-600 focus:ring-brown-600"
                   />
                   <span className="ml-2 text-gray-600">{addon.name}</span>
@@ -115,8 +151,11 @@ export default function AddOnsModal({ isOpen, onClose }: AddOnsModalProps_T) {
         </div>
         {/* CTA */}
 
-        <button className="bg-brown-600 mt-4 rounded-md font-medium hover:bg-opacity-95 text-white px-4 py-2 w-full">
-          Place Order
+        <button
+          onClick={handlePlaceOrder}
+          className="bg-brown-600 mt-4 rounded-md font-medium hover:bg-opacity-95 text-white px-4 py-2 w-full"
+        >
+          Add To Cart
         </button>
       </div>
     </Modal>

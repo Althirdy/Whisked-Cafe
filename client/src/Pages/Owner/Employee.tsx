@@ -3,8 +3,8 @@ import InputField from "../../Components/InputField";
 import { UserPlus } from "lucide-react";
 import EmployeeList from "./EmployeeComp/EmployeeList";
 import AddEmployeeModal from "./EmployeeComp/AddEmployeeModal";
-import { Employee_T } from "./Employee_T";
-import { FetchEmployees } from "./EmployeeComp/Employee_Util";
+import { Employee_T } from "./EmployeeComp/Employee_T";
+import { FetchEmployees } from "./Util/Employee_Util";
 
 function Employee() {
   const [query, setQuery] = useState<string>("");

@@ -7,7 +7,7 @@ import {
   User,
   UserCog,
 } from "lucide-react";
-import { Employee_T } from "../Employee_T";
+import { Employee_T } from "./Employee_T";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import UpdateEmployeeModal from "./UpdateEmployeeModal";
 import { useState } from "react";

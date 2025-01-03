@@ -12,9 +12,16 @@ class MealController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $meals = Meals::with('mealCategory')->get();
+        $query = $request->input('category');
+
+        // Check if the 'category' query parameter is set
+        if ($query) {
+            $meals = Meals::with('mealCategory')->where('mealCategory', $query)->get();
+        } else {
+            $meals = Meals::with('mealCategory')->get();
+        }
 
         return MealResource::collection($meals);
     }

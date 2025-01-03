@@ -3,8 +3,8 @@ import ComboBox from "../../../Components/ComboBox";
 import InputField from "../../../Components/InputField";
 import Modal from "../../../Components/Modal";
 import { Eye, EyeOff, UserPlus } from "lucide-react";
-import { AddingEmployee_T } from "../Employee_T";
-import { addEmployee_M } from "./Employee_Util";
+import { AddingEmployee_T } from "./Employee_T";
+import { addEmployee_M } from "../Util/Employee_Util";
 import toast from "react-hot-toast";
 
 type AddModalProps_T = {

@@ -1,8 +1,8 @@
 import { Eye, EyeOff, UserPlus } from "lucide-react";
 import Modal from "../../../Components/Modal";
 import { useState } from "react";
-import { Employee_T } from "../Employee_T";
-import { UpdateEmployee } from "./Employee_Util";
+import { Employee_T } from "./Employee_T";
+import { UpdateEmployee } from "../Util/Employee_Util";
 import toast from "react-hot-toast";
 type AddModalProps_T = {
   isOpen: boolean;

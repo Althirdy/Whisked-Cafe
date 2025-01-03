@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")!).render(
   <>
-    <Toaster position="bottom-right" reverseOrder={false} />
+    <Toaster position="bottom-right"  reverseOrder={false} />
     <App />
   </>
 );

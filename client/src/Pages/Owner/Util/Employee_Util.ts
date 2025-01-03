@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AddingEmployee_T } from "../Employee_T";
+import { AddingEmployee_T } from "../EmployeeComp/Employee_T";
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 

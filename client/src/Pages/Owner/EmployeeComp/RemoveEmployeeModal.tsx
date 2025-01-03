@@ -1,8 +1,8 @@
 import React from "react";
 import Modal from "../../../Components/Modal";
-import { Employee_T } from "../Employee_T";
+import { Employee_T } from "./Employee_T";
 import { AlertCircleIcon } from "lucide-react";
-import { DeactivateEmployee } from "./Employee_Util";
+import { DeactivateEmployee } from "../Util/Employee_Util";
 import toast from "react-hot-toast";
 
 type RemoveModalProps_T = {

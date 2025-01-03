@@ -17,9 +17,18 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Spanish Latte",
                 "mealPrices" => [
-                    "12oz" => 45.00,
-                    "16oz" => 79.00,
-                    "22oz" => 99.00,
+                    [
+                        "size" => "12oz",
+                        "price" => 45.00
+                    ],
+                    [
+                        "size" => "16oz",
+                        "price" => 79.00
+                    ],
+                    [
+                        "size" => "22oz",
+                        "price" => 99.00
+                    ]
                 ],
                 "mealCategory" => 2,
                 "image" => "spanish_latte.png",
@@ -27,9 +36,18 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Amerikano",
                 "mealPrices" => [
-                    "12oz" => 45.00,
-                    "16oz" => 79.00,
-                    "22oz" => 99.00,
+                    [
+                        "size" => "12oz",
+                        "price" => 45.00
+                    ],
+                    [
+                        "size" => "16oz",
+                        "price" => 79.00
+                    ],
+                    [
+                        "size" => "22oz",
+                        "price" => 99.00
+                    ]
                 ],
                 "mealCategory" => 2,
                 "image" => "amerikano.png",
@@ -37,9 +55,18 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Capuccino",
                 "mealPrices" => [
-                    "12oz" => 49.00,
-                    "16oz" => 89.00,
-                    "22oz" => 109.00,
+                    [
+                        "size" => "12oz",
+                        "price" => 49.00
+                    ],
+                    [
+                        "size" => "16oz",
+                        "price" => 89.00
+                    ],
+                    [
+                        "size" => "22oz",
+                        "price" => 109.00
+                    ]
                 ],
                 "mealCategory" => 2,
                 "image" => "iced_capuccino.png",
@@ -47,18 +74,37 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Vanilla Latte",
                 "mealPrices" => [
-                    "12oz" => 45.00,
-                    "16oz" => 79.00,
-                    "22oz" => 99.00,
+                    [
+                        "size" => "12oz",
+                        "price" => 45.00
+                    ],
+                    [
+                        "size" => "16oz",
+                        "price" => 79.00
+                    ],
+                    [
+                        "size" => "22oz",
+                        "price" => 99.00
+                    ]
                 ],
                 "mealCategory" => 2,
                 "image" => "iced_latte.png",
-            ],[
+            ],
+            [
                 "mealName" => "Caramel",
                 "mealPrices" => [
-                    "12oz" => 45.00,
-                    "16oz" => 79.00,
-                    "22oz" => 99.00,
+                    [
+                        "size" => "12oz",
+                        "price" => 45.00
+                    ],
+                    [
+                        "size" => "16oz",
+                        "price" => 79.00
+                    ],
+                    [
+                        "size" => "22oz",
+                        "price" => 99.00
+                    ]
                 ],
                 "mealCategory" => 2,
                 "image" => "caramel.png",
@@ -66,7 +112,9 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Crossini",
                 "mealPrices" => [
-                    "price" => 100.00,
+                    [
+                        "price" => 100.00
+                    ]
                 ],
                 "mealCategory" => 5,
                 "image" => "crossini.png",
@@ -74,7 +122,9 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "White Chocolate Chip",
                 "mealPrices" => [
-                    "price" => 100.00,
+                    [
+                        "price" => 100.00
+                    ]
                 ],
                 "mealCategory" => 5,
                 "image" => "white_choco_chip.png",
@@ -82,7 +132,9 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Red Velvet Cookie",
                 "mealPrices" => [
-                    "price" => 100.00,
+                    [
+                        "price" => 100.00
+                    ]
                 ],
                 "mealCategory" => 5,
                 "image" => "red_velvet_cookie.png",
@@ -90,7 +142,9 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Hotdog Bun",
                 "mealPrices" => [
-                    "price" => 100.00,
+                    [
+                        "price" => 100.00
+                    ]
                 ],
                 "mealCategory" => 5,
                 "image" => "hotdog_bun.png",
@@ -98,7 +152,9 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Dark Chocolate Chip",
                 "mealPrices" => [
-                    "price" => 100.00,
+                    [
+                        "price" => 100.00
+                    ]
                 ],
                 "mealCategory" => 5,
                 "image" => "dark_choco_chip.png",
@@ -106,7 +162,10 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Capuccino",
                 "mealPrices" => [
-                    "8oz" => 59.00,
+                    [
+                        "size" => "8oz",
+                        "price" => 59.00
+                    ]
                 ],
                 "mealCategory" => 1,
                 "image" => "capuccino.png",
@@ -114,7 +173,10 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Vanilla",
                 "mealPrices" => [
-                    "8oz" => 59.00,
+                    [
+                        "size" => "8oz",
+                        "price" => 59.00
+                    ]
                 ],
                 "mealCategory" => 1,
                 "image" => "vanilla.png",
@@ -122,7 +184,10 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Brewed Coffee",
                 "mealPrices" => [
-                    "8oz" => 45.00,
+                    [
+                        "size" => "8oz",
+                        "price" => 45.00
+                    ]
                 ],
                 "mealCategory" => 1,
                 "image" => "brewed.png",
@@ -130,7 +195,10 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Hot Chocolate",
                 "mealPrices" => [
-                    "8oz" => 50.00,
+                    [
+                        "size" => "8oz",
+                        "price" => 50.00
+                    ]
                 ],
                 "mealCategory" => 1,
                 "image" => "choco.png",
@@ -138,7 +206,10 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Hazelnut",
                 "mealPrices" => [
-                    "8oz" => 59.00,
+                    [
+                        "size" => "8oz",
+                        "price" => 59.00
+                    ]
                 ],
                 "mealCategory" => 1,
                 "image" => "hazelnut.png",
@@ -146,9 +217,18 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Matcha Latte",
                 "mealPrices" => [
-                    "12oz" => 49.00,
-                    "16oz" => 89.00,
-                    "22oz" => 99.00,
+                    [
+                        "size" => "12oz",
+                        "price" => 49.00
+                    ],
+                    [
+                        "size" => "16oz",
+                        "price" => 89.00
+                    ],
+                    [
+                        "size" => "22oz",
+                        "price" => 99.00
+                    ]
                 ],
                 "mealCategory" => 4,
                 "image" => "matcha_latte.png",
@@ -156,9 +236,18 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Kiwi Matcha",
                 "mealPrices" => [
-                    "12oz" => 59.00,
-                    "16oz" => 89.00,
-                    "22oz" => 109.00,
+                    [
+                        "size" => "12oz",
+                        "price" => 59.00
+                    ],
+                    [
+                        "size" => "16oz",
+                        "price" => 89.00
+                    ],
+                    [
+                        "size" => "22oz",
+                        "price" => 109.00
+                    ]
                 ],
                 "mealCategory" => 4,
                 "image" => "matcha.png",
@@ -166,9 +255,18 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Blueberry Matcha",
                 "mealPrices" => [
-                    "12oz" => 59.00,
-                    "16oz" => 89.00,
-                    "22oz" => 109.00,
+                    [
+                        "size" => "12oz",
+                        "price" => 59.00
+                    ],
+                    [
+                        "size" => "16oz",
+                        "price" => 89.00
+                    ],
+                    [
+                        "size" => "22oz",
+                        "price" => 109.00
+                    ]
                 ],
                 "mealCategory" => 4,
                 "image" => "blueberry_matcha.png",
@@ -176,9 +274,18 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Strawberry Matcha",
                 "mealPrices" => [
-                    "12oz" => 59.00,
-                    "16oz" => 89.00,
-                    "22oz" => 109.00,
+                    [
+                        "size" => "12oz",
+                        "price" => 59.00
+                    ],
+                    [
+                        "size" => "16oz",
+                        "price" => 89.00
+                    ],
+                    [
+                        "size" => "22oz",
+                        "price" => 109.00
+                    ]
                 ],
                 "mealCategory" => 4,
                 "image" => "strawberry_matcha.png",
@@ -186,9 +293,18 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Kiwi Latte",
                 "mealPrices" => [
-                    "12oz" => 45.00,
-                    "16oz" => 79.00,
-                    "22oz" => 89.00,
+                    [
+                        "size" => "12oz",
+                        "price" => 45.00
+                    ],
+                    [
+                        "size" => "16oz",
+                        "price" => 79.00
+                    ],
+                    [
+                        "size" => "22oz",
+                        "price" => 89.00
+                    ]
                 ],
                 "mealCategory" => 3,
                 "image" => "latte_kiwi.png",
@@ -196,9 +312,18 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Chocolate Latte",
                 "mealPrices" => [
-                    "12oz" => 49.00,
-                    "16oz" => 79.00,
-                    "22oz" => 89.00,
+                    [
+                        "size" => "12oz",
+                        "price" => 49.00
+                    ],
+                    [
+                        "size" => "16oz",
+                        "price" => 79.00
+                    ],
+                    [
+                        "size" => "22oz",
+                        "price" => 89.00
+                    ]
                 ],
                 "mealCategory" => 3,
                 "image" => "latte_choco.png",
@@ -206,9 +331,18 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Mango Latte",
                 "mealPrices" => [
-                    "12oz" => 45.00,
-                    "16oz" => 79.00,
-                    "22oz" => 99.00,
+                    [
+                        "size" => "12oz",
+                        "price" => 45.00
+                    ],
+                    [
+                        "size" => "16oz",
+                        "price" => 79.00
+                    ],
+                    [
+                        "size" => "22oz",
+                        "price" => 99.00
+                    ]
                 ],
                 "mealCategory" => 3,
                 "image" => "latte_mango.png",
@@ -216,9 +350,18 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Oreo Latte",
                 "mealPrices" => [
-                    "12oz" => 59.00,
-                    "16oz" => 89.00,
-                    "22oz" => 109.00,
+                    [
+                        "size" => "12oz",
+                        "price" => 59.00
+                    ],
+                    [
+                        "size" => "16oz",
+                        "price" => 89.00
+                    ],
+                    [
+                        "size" => "22oz",
+                        "price" => 109.00
+                    ]
                 ],
                 "mealCategory" => 3,
                 "image" => "latte_oreo.png",
@@ -226,19 +369,28 @@ class MealSeeder extends Seeder
             [
                 "mealName" => "Strawberry Latte",
                 "mealPrices" => [
-                    "12oz" => 49.00,
-                    "16oz" => 89.00,
-                    "22oz" => 99.00,
+                    [
+                        "size" => "12oz",
+                        "price" => 49.00
+                    ],
+                    [
+                        "size" => "16oz",
+                        "price" => 89.00
+                    ],
+                    [
+                        "size" => "22oz",
+                        "price" => 99.00
+                    ]
                 ],
                 "mealCategory" => 3,
                 "image" => "latte_strawberry.png",
             ],
         ];
 
-        foreach($meals as $meal){
+        foreach ($meals as $meal) {
             DB::table('meals')->insert([
                 'mealName' => $meal['mealName'],
-                'mealPrices' =>json_encode($meal['mealPrices']),
+                'mealPrices' => json_encode($meal['mealPrices']),
                 'mealCategory' => $meal['mealCategory'],
                 'image' => $meal['image'],
                 'created_at' => now(),
