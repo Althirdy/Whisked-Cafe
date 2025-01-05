@@ -1,19 +1,23 @@
 import React from "react";
 import Modal from "../../../Components/Modal";
+import { Report_T } from "./Report_T";
 
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  report: Report_T;
 };
 
-function OrderReportModal({ isOpen, onClose }: ModalProps) {
+function OrderReportModal({ isOpen, onClose, report }: ModalProps) {
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
       title={
         <div className="pb-4 border-b">
-          <h2 className="text-brown-600 text-xl font-semibold">INV1122-002</h2>
+          <h2 className="text-brown-600 text-xl font-semibold">
+            {report.invoiceNo}
+          </h2>
         </div>
       }
     >
@@ -28,39 +32,76 @@ function OrderReportModal({ isOpen, onClose }: ModalProps) {
         </header>
         <div className="flex items-center justify-between border-b pb-4">
           <div className="space-y-1">
-            <Detials description="Customer: " content="Jin Dela Cruz" />
-            <Detials description="Mode of Payment: " content="Cash" />
+            <Detials description="Customer: " content={report.customerName} />
+            <Detials
+              description="Mode of Payment: "
+              content={report.paymentMethod}
+            />
+            {report.paymentMethod == "Gcash" && (
+              <Detials
+                description="Reference Number: "
+                content={report.referenceNumber ? report.referenceNumber : ""}
+              />
+            )}
           </div>
           <div className="space-y-1">
-            <Detials description="Issued On: " content="12-24-2024" />
-            <Detials description="Pick-Up: " content="10:00 AM" />
+            <Detials description="Issued On: " content={report.createdAt} />
+            <Detials description="Cashier: " content={report.user.fullName} />
           </div>
         </div>
         {/* Orders */}
         <div className="py-4 space-y-4 border-b">
           <h3 className="text-gray-600 text-sm">Orders:</h3>
-          <ul>
-            <li className="flex items-center text-sm justify-between">
-              <span>1x</span>
-              <span>Spanish Latte</span>
-              <span>₱50</span>
-            </li>
+          <ul className="space-y-2">
+            {report.meals.map((item, index) => (
+              <li key={index} className="grid grid-cols-3 text-sm ">
+                <span className="">{item.quantity}x</span>
+                <div className="flex flex-col">
+                  <div className="flex gap-2 items-center">
+                    <span className="font-semibold">{item.mealName}</span>
+                    <span className="text-xs">
+                      {typeof item.mealPrice == "object" &&
+                        `${item.mealPrice.size}`}
+                    </span>
+                  </div>
+                  {/* ADDONS */}
+                  {item.addOns && item.addOns.length > 0 && (
+                    <div className="ml-4">
+                      {item.addOns.map((addOn, addOnIndex) => (
+                        <>
+                          <span
+                            key={addOnIndex}
+                            className="text-gray-600 text-xs"
+                          >
+                            {addOn.name} ₱{addOn.price}
+                          </span>
+                          <br />
+                        </>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <span className="text-end">₱{item.totalPrice}</span>
+              </li>
+            ))}
           </ul>
-          <p className="text-gray-800 text-sm">Total Items: 1</p>
+          <p className="text-gray-800 text-sm">
+            Total Items: {report.meals.length}
+          </p>
         </div>
         {/* total price */}
         <div className="py-4">
           <div className="flex justify-between text-gray-900 items-center">
             <h1>Total Price:</h1>
-            <span>₱ 50.00</span>
+            <span>₱ {report.totalPrice}.00</span>
           </div>
           <div className="flex justify-between text-gray-700 text-sm items-center">
             <h1>Tender:</h1>
-            <span>₱ 50.00</span>
+            <span>₱ {report.tender}.00</span>
           </div>
           <div className="flex justify-between text-gray-700 text-sm items-center">
             <h1>Change:</h1>
-            <span>₱ 00.00</span>
+            <span>₱ {report.change}.00</span>
           </div>
         </div>
       </div>

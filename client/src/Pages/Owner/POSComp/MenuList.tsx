@@ -23,7 +23,7 @@ export default function MenuList({ meals }: Menu_Props) {
  */
 function ItemCard({ meal }: { meal: Meal_T }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { posOrder,setposOrder } = usePosStateContext();
+  const { posOrder, setposOrder, AddQuantity } = usePosStateContext();
 
   let quantity = Array.isArray(posOrder?.meals)
     ? posOrder?.meals
@@ -32,25 +32,30 @@ function ItemCard({ meal }: { meal: Meal_T }) {
     : 0;
 
   const HandleMenuClick = () => {
-    if(meal.mealCategory == 5){
-      const mealOrder:PosMealOrder = {
-        id: meal.id,
-        mealName: meal.mealName,
-        mealPrice: meal.mealPrices[0].price,
-        quantity: 1,
-        originalPrice:  meal.mealPrices[0].price,
-        totalPrice: meal.mealPrices[0].price,
-        mealOrderId: (posOrder?.meals?.length || 0) + 1,
-        mealCategory: meal.mealCategory
+    if (meal.mealCategory == 5) {
+      const mealCart = posOrder?.meals.find((n) => n.id == meal?.id);
+      if (!mealCart) {
+        const mealOrder: PosMealOrder = {
+          id: meal.id,
+          mealName: meal.mealName,
+          mealPrice: meal.mealPrices[0].price,
+          quantity: 1,
+          originalPrice: meal.mealPrices[0].price,
+          totalPrice: meal.mealPrices[0].price,
+          mealOrderId: (posOrder?.meals?.length || 0) + 1,
+          mealCategory: meal.mealCategory,
+        };
+        setposOrder(mealOrder);
+        toast.success("Order Added to cart!", {
+          style: { backgroundColor: "#8B4513", color: "#ffffff" },
+        });
+      } else {
+        AddQuantity(mealCart.mealOrderId);
       }
-      setposOrder(mealOrder);
-      toast.success("Order Added to cart!", {
-        style: { backgroundColor: "#8B4513", color: "#ffffff" },
-      });
-    }else{
-      setIsOpen(true)
+    } else {
+      setIsOpen(true);
     }
-  }
+  };
 
   return (
     <>

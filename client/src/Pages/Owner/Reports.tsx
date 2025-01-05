@@ -1,13 +1,64 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputField from "../../Components/InputField";
 import { Download } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ReportsList from "./ReportsComp/ReportsList";
+import { FetchSuccessOrder } from "./Util/POS_Util";
+import { useStateContext } from "../../Contexts/ContextProvider";
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 function Reports() {
   const [query, setQuery] = useState("");
   const [date, setDate] = useState<Date | null>(new Date());
+  const [reportData, setReportData] = useState<any[]>();
+  const { user } = useStateContext();
+  const fetchReports = async (url: string) => {
+    const res = await FetchSuccessOrder(url);
+    if (res.success) {
+      setReportData(res.data);
+    } else {
+      console.log(res.message);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const currentDate = new Date().toISOString().split("T")[0]; // Get current date in YYYY-MM-DD format
+      const selectedDate = date
+        ? date.toISOString().split("T")[0]
+        : currentDate; // Format the selected date to YYYY-MM-DD
+      let url;
+
+      // Check the user's role and set the URL accordingly
+      if (user?.role != "Owner") {
+        url = `${BASE_URL}/v1/successorder?crew=${user?.id}`;
+      } else {
+        url = `${BASE_URL}/v1/successorder`;
+      }
+
+      // Append the date and query parameters in a conditional way
+      const urlParams = [];
+
+      if (selectedDate !== currentDate) {
+        urlParams.push(`date=${selectedDate}`);
+      }
+
+      if (query && query.trim() !== "") {
+        urlParams.push(`query=${query.trim()}`);
+      }
+
+      // If there are parameters to append, join them with '&'
+      if (urlParams.length > 0) {
+        url += `?${urlParams.join("&")}`;
+      }
+
+      // Fetch the data using the constructed URL
+      await fetchReports(url);
+    };
+
+    fetchData();
+  }, [date, query, user]);
 
   return (
     <div>
@@ -33,7 +84,13 @@ function Reports() {
           placeholder="Search order"
         />
       </div>
-      <ReportsList />
+      <div className="mt-5">
+        {reportData ? (
+          <ReportsList reportData={reportData.data} />
+        ) : (
+          <h1>Loading..</h1>
+        )}
+      </div>
     </div>
   );
 }

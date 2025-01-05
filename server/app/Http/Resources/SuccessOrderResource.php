@@ -25,7 +25,7 @@ class SuccessOrderResource extends JsonResource
             'tender' => $this->tender,
             'totalPrice' => $this->totalPrice,
             'change' => $this->change,
-            'created_at' => $this->created_at,
+            'createdAt' => $this->created_at->format('Y-m-d'),
             // Only return the required user details
             'user' => [
                 'fullName' => $this->user->fullName,

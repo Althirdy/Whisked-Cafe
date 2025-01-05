@@ -1,37 +1,53 @@
 import { useState } from "react";
 import OrderReportModal from "./OrderReportModal";
+import { Report_T } from "./Report_T";
 
-function ReportsList() {
+function ReportsList({ reportData }: { reportData: Report_T[] }) {
   return (
     <div className="mt-5 grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
-      <ReportCard />
-      <ReportCard />
-
-      <ReportCard />
-
-      <ReportCard />
-
+      {reportData &&
+        reportData.map((item, index) => (
+          <ReportCard key={index} report={item} />
+        ))}
     </div>
   );
 }
 
-function ReportCard() {
+function ReportCard({ report }: { report: Report_T }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
       <div className="border space-y-2 relative rounded-md p-4 bg-white shadow-sm">
-        <h1 className="font-semibold text-gray-800">INV1122-001</h1>
+        <h1 className="font-semibold text-gray-800 ">
+          {report.invoiceNo.length > 10
+            ? `${report.invoiceNo.slice(0, 10)}...`
+            : report.invoiceNo}
+        </h1>
         <div>
           <p className="text-sm text-gray-600">
-            Items: <span className="font-semibold text-gray-700">4</span>
+            Customer Name:{" "}
+            <span className="font-semibold text-gray-700">
+              {report.customerName}
+            </span>
+          </p>
+          <p className="text-sm text-gray-600">
+            Items:{" "}
+            <span className="font-semibold text-gray-700">
+              {report.meals.length}
+            </span>
           </p>
           <p className="text-sm text-gray-600">
             Total Price:{" "}
-            <span className="font-semibold text-gray-700">₱150</span>
+            <span className="font-semibold text-gray-700">
+              ₱ {report.totalPrice}.00
+            </span>
           </p>
           <p className="text-sm text-gray-600">
-            Order: <span className="font-semibold text-gray-700">In-Store</span>
+            Order:{" "}
+            <span className="font-semibold text-gray-700">
+              {report.orderType}
+            </span>
           </p>
         </div>
         <span
@@ -41,10 +57,13 @@ function ReportCard() {
           View Details
         </span>
       </div>
-      <OrderReportModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      {isModalOpen && (
+        <OrderReportModal
+          report={report}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </>
   );
 }

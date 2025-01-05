@@ -1,6 +1,7 @@
 import { BadgePercent, CupSoda, TrendingUp } from "lucide-react";
 
 function Dashboard() {
+
   return (
     <div>
       <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">

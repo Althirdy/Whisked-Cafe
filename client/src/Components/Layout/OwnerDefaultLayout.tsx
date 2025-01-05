@@ -36,6 +36,19 @@ function OwnerDefaultLayout() {
     }
   };
 
+  const links = () => {
+    switch (user?.role) {
+      case "Cashier":
+        return <CashierLinks />;
+      case "Owner":
+        return <OwnerLinks />;
+      case "Assistant Manager":
+        return <AsstManager />;
+      default:
+        return "Loading...";
+    }
+  };
+
   return (
     <div className="min-h-screen flex bg-gray-100">
       <aside className="w-60 bg-white min-h-screen hidden md:flex flex-col items-start space-y-16 p-6 py-10 border-r shadow-xs">
@@ -49,28 +62,7 @@ function OwnerDefaultLayout() {
           </div>
         </Link>
         <ul className="w-full space-y-1">
-          <SideBarLink
-            href="/dashboard"
-            icon={<House size={20} />}
-            label="Dashboard"
-          />
-          <SideBarLink href="/pos" icon={<CupSoda size={20} />} label="POS" />
-          <SideBarLink
-            href="/inventory"
-            icon={<CirclePercent size={20} />}
-            label="Inventory"
-          />
-          <SideBarLink href="/menu" icon={<Logs size={20} />} label="Menu" />
-          <SideBarLink
-            href="/reports"
-            icon={<ChartNoAxesColumn size={20} />}
-            label="Reports"
-          />
-          <SideBarLink
-            href="/employee"
-            icon={<User size={20} />}
-            label="Employee"
-          />
+          {links()}
           <button
             onClick={handleLogout}
             className={`flex gap-4 font-medium text-sm items-center  p-2 rounded-md w-full text-gray-500 hover:bg-brown-100`}
@@ -91,6 +83,66 @@ function OwnerDefaultLayout() {
         </div>
       </main>
     </div>
+  );
+}
+
+function OwnerLinks() {
+  return (
+    <>
+      <SideBarLink
+        href="/dashboard"
+        icon={<House size={20} />}
+        label="Dashboard"
+      />
+      <SideBarLink href="/pos" icon={<CupSoda size={20} />} label="POS" />
+      <SideBarLink
+        href="/inventory"
+        icon={<CirclePercent size={20} />}
+        label="Inventory"
+      />
+      <SideBarLink href="/menu" icon={<Logs size={20} />} label="Menu" />
+      <SideBarLink
+        href="/reports"
+        icon={<ChartNoAxesColumn size={20} />}
+        label="Reports"
+      />
+      <SideBarLink
+        href="/employee"
+        icon={<User size={20} />}
+        label="Employee"
+      />
+    </>
+  );
+}
+
+function CashierLinks() {
+  return (
+    <>
+      <SideBarLink href="/pos" icon={<CupSoda size={20} />} label="POS" />
+      <SideBarLink
+        href="/reports"
+        icon={<ChartNoAxesColumn size={20} />}
+        label="Reports"
+      />
+    </>
+  );
+}
+
+function AsstManager() {
+  return (
+    <>
+      <SideBarLink href="/pos" icon={<CupSoda size={20} />} label="POS" />
+      <SideBarLink
+        href="/inventory"
+        icon={<CirclePercent size={20} />}
+        label="Inventory"
+      />{" "}
+      <SideBarLink
+        href="/reports"
+        icon={<ChartNoAxesColumn size={20} />}
+        label="Reports"
+      />
+    </>
   );
 }
 
@@ -132,9 +184,7 @@ function getTitle(pathname: string) {
       return (
         <div>
           <h1 className="text-brown-600 font-bold text-xl">Payment</h1>
-          <span className="text-gray-600 text-sm">
-            Payment for the orders
-          </span>
+          <span className="text-gray-600 text-sm">Payment for the orders</span>
         </div>
       );
     default:

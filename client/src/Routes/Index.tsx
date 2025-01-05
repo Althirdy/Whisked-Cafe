@@ -8,6 +8,7 @@ import Pos from "../Pages/Owner/Pos";
 import Employee from "../Pages/Owner/Employee";
 import Reports from "../Pages/Owner/Reports";
 import Home from "../Pages/Home";
+import Protected from "./Protected";
 
 const Router = () => {
   return (
@@ -19,9 +20,11 @@ const Router = () => {
       </Route>
 
       <Route element={<OwnerDefaultLayout />}>
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route element={<Protected />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/employee" element={<Employee />} />
+        </Route>
         <Route path="/pos" element={<Pos />} />
-        <Route path="/employee" element={<Employee />} />
         <Route path="/reports" element={<Reports />} />
       </Route>
     </Routes>

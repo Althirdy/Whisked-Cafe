@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSuccessOrderRequest;
 use App\Http\Resources\SuccessOrderResource;
 use App\Models\SuccessOrder;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class SuccessOrderController extends Controller
@@ -13,11 +14,33 @@ class SuccessOrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-       $successOrder = SuccessOrder::with('user')->paginate(10);
+        $date = $request->input('date');
+        $_query = $request->input('query');
+        $_crew = $request->input('crew');
+        $query = SuccessOrder::with('user')->orderBy('id', 'desc');
 
-       return SuccessOrderResource::collection($successOrder);
+        if ($date) {
+            $query->whereDate('created_at', '=', $date);
+        } else {
+            $today = Carbon::today()->toDateString();
+            $query->whereDate('created_at', '=', $today);
+        }
+        if ($_crew) {
+            $query->where('crewID', '=', $_crew);
+        }
+        if ($_query) {
+            $query->where(function ($q) use ($_query) {
+                $q->where('invoiceNo', 'like', "%$_query%")
+                    ->orWhere('customerName', 'like', "%$_query%");
+            });
+        }
+
+
+        $successOrder = $query->paginate(10);
+
+        return SuccessOrderResource::collection($successOrder);
     }
 
     /**

@@ -26,8 +26,17 @@ export const SaveSuccessOrder = async (successOrerData: any) => {
   }
 };
 
-export const FetchSuccessOrder = async () => {
+export const FetchSuccessOrder = async (URL = "") => {
   try {
+    const response = await axios.get(URL, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+      },
+    });
+    return {
+      success: true,
+      data: response.data,
+    };
   } catch (error: any) {
     return {
       success: false,
