@@ -23,7 +23,7 @@ function OwnerDefaultLayout() {
   const { user, token, setToken } = useStateContext();
   const location = useLocation();
   // && user?.role !== "Owner"
-  if (!token ) {
+  if (!token) {
     return <Navigate to="/login" />;
   }
   const navigate = useNavigate();
@@ -125,6 +125,15 @@ function getTitle(pathname: string) {
           <h1 className="text-brown-600 font-bold text-xl">Reports</h1>
           <span className="text-gray-600 text-sm">
             Review your past transactions and order history
+          </span>
+        </div>
+      );
+    case "/payment":
+      return (
+        <div>
+          <h1 className="text-brown-600 font-bold text-xl">Payment</h1>
+          <span className="text-gray-600 text-sm">
+            Payment for the orders
           </span>
         </div>
       );

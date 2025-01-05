@@ -4,6 +4,7 @@ export type login = {
 }
 
 export type Auth_T = {
+    id: number,
     fullName: string,
     phoneNumber: string,
     email: string,

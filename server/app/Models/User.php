@@ -37,6 +37,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * Get the user for the successorder
+     */
+
+    public function successorder(){
+        return $this->hasMany(SuccessOrder::class,'crewID');
+    }
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>

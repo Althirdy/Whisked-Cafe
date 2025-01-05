@@ -11,8 +11,14 @@ type POSContext_T = {
   posOrder: POS | null;
   setposOrder: (order: PosMealOrder) => void;
   AddQuantity: (mealOrderId: number) => void;
-  SubtractQuantity:  (mealOrderId: number) => void;
+  SubtractQuantity: (mealOrderId: number) => void;
   RemoveFromCart: (mealOrderId: number) => void;
+  setOrderType: (orderType: string) => void;
+  setPaymentMethod: (method: string) => void;
+  setTender: (tender: number) => void;
+  setReferenceNumber: (reference: string) => void;
+  setCustomerName: (name: string) => void;
+  ResetData: () => void;
 };
 
 type POSContextProvider = {
@@ -23,8 +29,14 @@ const PosStateContext = createContext<POSContext_T>({
   posOrder: null,
   setposOrder: () => {},
   AddQuantity: () => {},
-  SubtractQuantity: ()=> {},
-  RemoveFromCart: () => {}
+  SubtractQuantity: () => {},
+  RemoveFromCart: () => {},
+  setOrderType: () => {},
+  setPaymentMethod: () => {},
+  setTender: () => {},
+  setReferenceNumber: () => {},
+  setCustomerName: () => {},
+  ResetData: () => {},
 });
 
 export const POSContextProvider = ({ children }: POSContextProvider) => {
@@ -34,14 +46,59 @@ export const POSContextProvider = ({ children }: POSContextProvider) => {
     orderType: "",
     meals: [],
     totalPrice: 0,
+    tender: 0,
+    change: 0,
+    referenceNumber: "",
   });
 
-  const setposOrder = (meal: PosMealOrder) => {
+  useEffect(() => {
+    if (
+      posOrder?.totalPrice !== undefined &&
+      posOrder.tender >= posOrder.totalPrice
+    ) {
+      _setPosOrder((prev) => ({
+        ...prev,
+        change: posOrder.tender - posOrder.totalPrice,
+      }));
+    } else {
+      _setPosOrder((prev) => ({
+        ...prev,
+        change: 0, // Default to 0 if tender is less than totalPrice or totalPrice is undefined
+      }));
+    }
+  }, [posOrder?.tender, posOrder?.totalPrice]);
+
+  const ResetData = () =>
+    _setPosOrder({
+      customerName: "",
+      paymentMethod: "",
+      orderType: "",
+      meals: [],
+      totalPrice: 0,
+      tender: 0,
+      change: 0,
+      referenceNumber: "",
+    });
+
+  const setReferenceNumber = (reference: string) =>
+    _setPosOrder((prev) => ({ ...prev, referenceNumber: reference }));
+
+  const setTender = (tender: number) =>
+    _setPosOrder((prev) => ({ ...prev, tender: tender }));
+
+  const setPaymentMethod = (method: string) =>
+    _setPosOrder((prev) => ({ ...prev, paymentMethod: method }));
+
+  const setOrderType = (orderType: string) =>
+    _setPosOrder((prev) => ({ ...prev, orderType: orderType }));
+
+  const setposOrder = (meal: PosMealOrder) =>
     _setPosOrder((prev) => ({
       ...prev,
       meals: [...(posOrder?.meals || []), meal],
     }));
-  };
+  const setCustomerName = (name: string) =>
+    _setPosOrder((prev) => ({ ...prev, customerName: name }));
 
   const AddQuantity = (mealOrderId: number) => {
     if (mealOrderId) {
@@ -100,7 +157,21 @@ export const POSContextProvider = ({ children }: POSContextProvider) => {
   }, [posOrder.meals]);
 
   return (
-    <PosStateContext.Provider value={{ posOrder, setposOrder, AddQuantity,SubtractQuantity,RemoveFromCart }}>
+    <PosStateContext.Provider
+      value={{
+        posOrder,
+        setposOrder,
+        AddQuantity,
+        SubtractQuantity,
+        RemoveFromCart,
+        setOrderType,
+        setPaymentMethod,
+        setTender,
+        setReferenceNumber,
+        setCustomerName,
+        ResetData
+      }}
+    >
       {children}
     </PosStateContext.Provider>
   );
