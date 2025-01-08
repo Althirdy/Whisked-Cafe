@@ -9,12 +9,14 @@ import Employee from "../Pages/Owner/Employee";
 import Reports from "../Pages/Owner/Reports";
 import Home from "../Pages/Home";
 import Protected from "./Protected";
+import Menu from "../Pages/Owner/Menu";
 
 const Router = () => {
   return (
     <Routes>
       <Route element={<GuestLayout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/menu" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Route>
@@ -23,6 +25,7 @@ const Router = () => {
         <Route element={<Protected />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/employee" element={<Employee />} />
+          <Route path="/meals" element={<Menu />} />
         </Route>
         <Route path="/pos" element={<Pos />} />
         <Route path="/reports" element={<Reports />} />

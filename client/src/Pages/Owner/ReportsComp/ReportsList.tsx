@@ -4,7 +4,7 @@ import { Report_T } from "./Report_T";
 
 function ReportsList({ reportData }: { reportData: Report_T[] }) {
   return (
-    <div className="mt-5 grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+    <div className="mt-5 grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
       {reportData &&
         reportData.map((item, index) => (
           <ReportCard key={index} report={item} />

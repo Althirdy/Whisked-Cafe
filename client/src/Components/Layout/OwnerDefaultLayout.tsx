@@ -45,7 +45,7 @@ function OwnerDefaultLayout() {
       case "Assistant Manager":
         return <AsstManager />;
       default:
-        return "Loading...";
+        return "";
     }
   };
 
@@ -100,7 +100,7 @@ function OwnerLinks() {
         icon={<CirclePercent size={20} />}
         label="Inventory"
       />
-      <SideBarLink href="/menu" icon={<Logs size={20} />} label="Menu" />
+      <SideBarLink href="/meals" icon={<Logs size={20} />} label="Menu" />
       <SideBarLink
         href="/reports"
         icon={<ChartNoAxesColumn size={20} />}
@@ -163,7 +163,12 @@ function getTitle(pathname: string) {
         </div>
       );
     case "/inventory":
-      return "inventory";
+      return (
+        <div>
+          <h1 className="text-brown-600 font-bold text-xl">Inventory</h1>
+          <span className="text-gray-600 text-sm">Track and manage stock level</span>
+        </div>
+      );
     case "/employee":
       return (
         <div>
@@ -180,11 +185,11 @@ function getTitle(pathname: string) {
           </span>
         </div>
       );
-    case "/payment":
+    case "/meals":
       return (
         <div>
-          <h1 className="text-brown-600 font-bold text-xl">Payment</h1>
-          <span className="text-gray-600 text-sm">Payment for the orders</span>
+          <h1 className="text-brown-600 font-bold text-xl">Meals</h1>
+          <span className="text-gray-600 text-sm">Manage your Meals</span>
         </div>
       );
     default:

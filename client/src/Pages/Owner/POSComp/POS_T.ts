@@ -12,7 +12,8 @@ export type Meal_T = {
     mealName: string,
     mealPrices: price[]
     mealCategory: number,
-    image: string
+    image: string,
+    isAvailable: boolean
 }
 
 export type PosMealOrder = {

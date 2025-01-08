@@ -4,13 +4,13 @@ import { Meal_T, PosMealOrder } from "./POS_T";
 import { usePosStateContext } from "../../../Contexts/POSContextProvider";
 import toast from "react-hot-toast";
 
-type Menu_Props = {
+export type Menu_Props = {
   meals: Meal_T[];
 };
 
 export default function MenuList({ meals }: Menu_Props) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 mt-6 gap-2">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5  2xl:grid-cols-7 mt-6 gap-2">
       {meals && meals.map((m, i) => <ItemCard key={i} meal={m} />)}
     </div>
   );
@@ -32,6 +32,7 @@ function ItemCard({ meal }: { meal: Meal_T }) {
     : 0;
 
   const HandleMenuClick = () => {
+    if(!meal.isAvailable) return
     if (meal.mealCategory == 5) {
       const mealCart = posOrder?.meals.find((n) => n.id == meal?.id);
       if (!mealCart) {
@@ -61,8 +62,17 @@ function ItemCard({ meal }: { meal: Meal_T }) {
     <>
       <div
         onClick={HandleMenuClick}
-        className="p-4 border shadow-sm bg-white flex flex-col justify-between rounded-md relative cursor-pointer hover:bg-gray-50 z-1"
+        className={`${
+          meal.isAvailable ? " cursor-pointer" : "cursor-not-allowed"
+        } p-4 border bg-white shadow-sm  flex flex-col justify-between rounded-md relative  hover:bg-gray-50 z-1`}
       >
+        {!meal.isAvailable ? (
+          <div className="bg-brown-600 text-white px-2.5 py-2 text-xs rounded-md absolute top-2 left-2">
+            Not Available
+          </div>
+        ) : (
+          ""
+        )}
         {/* OrderCount */}
         {quantity != 0 && (
           <div className="h-10 w-10 absolute bg-slate-600 text-white flex items-center justify-center rounded-full font-medium right-2 top-2 text-md">
@@ -72,10 +82,15 @@ function ItemCard({ meal }: { meal: Meal_T }) {
         <img
           src={meal.image}
           alt="Meal Image"
-          className="h-24 w-24 object-contain mx-auto"
+          className="h-20 w-24 object-contain mx-auto"
         />
         <div className="space-y-[-.2rem]">
-          <h2 className="text-gray-900 text-lg font-medium">{meal.mealName}</h2>
+          <h2 className="text-gray-900 text-md font-medium">
+            {" "}
+            {meal.mealName.length > 12
+              ? `${meal.mealName.slice(0, 10)}...`
+              : meal.mealName}
+          </h2>
           <div>
             <p className="text-xs">
               For as low as: <span>₱ {meal.mealPrices[0]?.price}.00</span>{" "}

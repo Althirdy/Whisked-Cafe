@@ -19,6 +19,7 @@ class MealResource extends JsonResource
             'mealName' => $this->mealName,
             'mealPrices' => json_decode($this->mealPrices),
             'mealCategory'=> $this->mealCategory ? $this->mealCategory : null,
+            'isAvailable'=>$this->isAvailable ? true : false ,
             'image'=> asset('images/' . $this->image)
         ];
     }

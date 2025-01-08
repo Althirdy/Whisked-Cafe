@@ -62,7 +62,7 @@ function Reports() {
 
   return (
     <div>
-      <h1 className="mb-2 font-semibold text-md text-gray-900">Invoices (4)</h1>
+      <h1 className="mb-2 font-semibold text-md text-gray-900">Invoices ({reportData?.length | 0})</h1>
       <div className="prose flex  gap-4 items-center mb-2">
         <DatePicker
           selected={date}

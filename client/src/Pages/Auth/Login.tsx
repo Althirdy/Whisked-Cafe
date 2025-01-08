@@ -16,9 +16,10 @@ export default function Login() {
   const { setToken } = useStateContext();
   const [error, setError] = useState<any>();
   const navigate = useNavigate();
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+  
     const result = await Auth_Login(formData);
     if (!result.success) {
       setError(result.message);
