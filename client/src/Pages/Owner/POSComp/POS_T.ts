@@ -44,7 +44,10 @@ export type POS = {
     orderType?: string
     meals: PosMealOrder[],
     totalPrice?: number,
-    tender: number,
-    change: number
+    tender?: number,
+    change?: number
     referenceNumber?: string
+    pickUp?: string,
+    time?: string,
+    note?: string
 }

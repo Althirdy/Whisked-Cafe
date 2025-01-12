@@ -22,10 +22,6 @@ import { Auth_Logout } from "../../Pages/Auth/Auth_Util";
 function OwnerDefaultLayout() {
   const { user, token, setToken } = useStateContext();
   const location = useLocation();
-  // && user?.role !== "Owner"
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -63,6 +59,11 @@ function OwnerDefaultLayout() {
         </Link>
         <ul className="w-full space-y-1">
           {links()}
+          <SideBarLink
+            href="/online"
+            icon={<CupSoda size={20} />}
+            label="OnlineOrders"
+          />
           <button
             onClick={handleLogout}
             className={`flex gap-4 font-medium text-sm items-center  p-2 rounded-md w-full text-gray-500 hover:bg-brown-100`}
@@ -162,11 +163,20 @@ function getTitle(pathname: string) {
           <span className="text-gray-600 text-sm">Overview</span>
         </div>
       );
+    case "/online":
+      return (
+        <div>
+          <h1 className="text-brown-600 font-bold text-xl">Online Orders</h1>
+          <span className="text-gray-600 text-sm">Manage your online orders</span>
+        </div>
+      );
     case "/inventory":
       return (
         <div>
           <h1 className="text-brown-600 font-bold text-xl">Inventory</h1>
-          <span className="text-gray-600 text-sm">Track and manage stock level</span>
+          <span className="text-gray-600 text-sm">
+            Track and manage stock level
+          </span>
         </div>
       );
     case "/employee":

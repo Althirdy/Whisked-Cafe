@@ -2,9 +2,13 @@ import { CirclePlus, MinusCircle, ShoppingBag, Trash } from "lucide-react";
 import Modal from "../../../Components/Modal";
 import { usePosStateContext } from "../../../Contexts/POSContextProvider";
 import { PosMealOrder } from "./POS_T";
-import { useState } from "react";
-import OrderType from "./orderType";
+import { useRef, useState } from "react";
 import Payment from "./Payment";
+import { useStateContext } from "../../../Contexts/ContextProvider";
+import PickUpOptionModal from "../../Customer/PickUpOptionModal";
+import OrderType from "./OrderType";
+import { Description, Field, Textarea } from "@headlessui/react";
+import clsx from "clsx";
 
 type OrderSummaryModal_T = {
   isOpen: boolean;
@@ -12,19 +16,26 @@ type OrderSummaryModal_T = {
 };
 
 export default function OrderSummary({ ...props }: OrderSummaryModal_T) {
-  const { posOrder } = usePosStateContext();
+  const note = useRef<HTMLTextAreaElement>(null);
+  const { posOrder, setMutatePos } = usePosStateContext();
+  const { user } = useStateContext();
   const [modals, setModals] = useState({
+    pickUpOption: false,
     orderType: false,
     payment: false,
   });
-
   const handleProceedToPayment = () => {
-    setModals({ ...modals, orderType: true });
+    if (user?.role !== "Customer") {
+      setModals({ ...modals, orderType: true });
+    } else {
+      setModals({ ...modals, pickUpOption: true });
+      setMutatePos({ prop: "note", value: note.current?.value });
+    }
     props.onClose();
   };
 
   const handleOrderTypeProceed = () => {
-    setModals({ orderType: false, payment: true });
+    setModals({ ...modals, orderType: false, payment: true });
   };
 
   return (
@@ -49,24 +60,53 @@ export default function OrderSummary({ ...props }: OrderSummaryModal_T) {
               Total Price: ₱ {posOrder?.totalPrice}.00
             </h3>
           </div>
-          <button
-            onClick={handleProceedToPayment}
-            className="bg-brown-600 text-white w-full p-2 rounded-md hover:bg-opacity-95"
-          >
-            Proceed to Payment
-          </button>
+          {user?.role === "Customer" && (
+            <Field className="mt-4">
+              <Description className="text-sm/6 text-gray-800">
+                Note for your order:
+              </Description>
+              <Textarea
+                ref={note}
+                placeholder="Your order: Your Note"
+                className={clsx(
+                  "block w-full resize-none rounded-lg border border-gray-300 bg-white/5 py-1.5 px-3 text-sm/6 text-black",
+                  "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
+                )}
+                rows={3}
+              />
+            </Field>
+          )}
+          {posOrder?.meals && posOrder.meals.length >= 1 && (
+            <button
+              onClick={handleProceedToPayment}
+              className="bg-brown-600 text-white w-full p-2 rounded-md hover:bg-opacity-95"
+            >
+              Proceed to Payment
+            </button>
+          )}
         </div>
       </Modal>
-      <OrderType
-        isOpen={modals.orderType}
-        onClose={() => setModals({ ...modals, orderType: false })}
-        handleOrderTypeProceed={handleOrderTypeProceed}
-      />
-      {posOrder?.orderType && (
-        <Payment
-          isOpen={modals.payment}
-          onClose={() => setModals({ ...modals, payment: false })}
-        />
+      {user?.role != "Customer" ? (
+        <>
+          <OrderType
+            isOpen={modals.orderType}
+            onClose={() => setModals({ ...modals, orderType: false })}
+            handleOrderTypeProceed={handleOrderTypeProceed}
+          />
+          {posOrder?.orderType && (
+            <Payment
+              isOpen={modals.payment}
+              onClose={() => setModals({ ...modals, payment: false })}
+            />
+          )}
+        </>
+      ) : (
+        <>
+          <PickUpOptionModal
+            isOpen={modals.pickUpOption}
+            onClose={() => setModals({ ...modals, pickUpOption: false })}
+          />
+        </>
       )}
     </>
   );

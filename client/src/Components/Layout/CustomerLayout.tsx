@@ -1,18 +1,18 @@
-import {  Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Navbar from "../Navbar";
-import Footer from "../Footer";
 
-function GuestLayout() {
-  
+
+function CustomerLayout() {
   return (
     <div className="flex min-h-screen max-w-screen-xl mx-auto flex-col">
       <Navbar />
-      <main className="flex-1">
+      <main className="flex-1 mt-5">
         <Outlet />
       </main>
-      <Footer />
     </div>
   );
 }
 
-export default GuestLayout;
+
+
+export default CustomerLayout;

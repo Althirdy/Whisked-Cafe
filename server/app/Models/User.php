@@ -40,10 +40,24 @@ class User extends Authenticatable
      * Get the user for the successorder
      */
 
-    public function successorder(){
-        return $this->hasMany(SuccessOrder::class,'crewID');
+    public function successorder()
+    {
+        return $this->hasMany(SuccessOrder::class, 'crewID');
     }
-
+    /**
+     * Relationship: Online orders placed by the user as a customer.
+     */
+    public function customerOrders()
+    {
+        return $this->hasMany(onlineOrders::class, 'customerId');
+    }
+    /**
+     * Relationship: Online orders assigned to the user as a crew member.
+     */
+    public function crewOrders()
+    {
+        return $this->hasMany(OnlineOrders::class, 'crewId');
+    }
     /**
      * Get the attributes that should be cast.
      *

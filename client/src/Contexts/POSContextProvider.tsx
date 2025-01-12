@@ -1,4 +1,4 @@
-import {
+import React, {
   createContext,
   ReactNode,
   useContext,
@@ -19,6 +19,7 @@ type POSContext_T = {
   setReferenceNumber: (reference: string) => void;
   setCustomerName: (name: string) => void;
   ResetData: () => void;
+  setMutatePos: ({ prop, value }: { prop: string; value: any }) => void;
 };
 
 type POSContextProvider = {
@@ -37,6 +38,7 @@ const PosStateContext = createContext<POSContext_T>({
   setReferenceNumber: () => {},
   setCustomerName: () => {},
   ResetData: () => {},
+  setMutatePos: () => {},
 });
 
 export const POSContextProvider = ({ children }: POSContextProvider) => {
@@ -49,6 +51,9 @@ export const POSContextProvider = ({ children }: POSContextProvider) => {
     tender: 0,
     change: 0,
     referenceNumber: "",
+    pickUp: "",
+    time: "",
+    note: ""
   });
 
   useEffect(() => {
@@ -78,7 +83,16 @@ export const POSContextProvider = ({ children }: POSContextProvider) => {
       tender: 0,
       change: 0,
       referenceNumber: "",
+      pickUp: "",
+      time: "",
+      note: ""
     });
+
+  const setMutatePos = ({ prop, value }: { prop: string; value: any }) =>
+    _setPosOrder((prev) => ({
+      ...prev,
+      [prop]: value, // Dynamically setting the property
+    }));
 
   const setReferenceNumber = (reference: string) =>
     _setPosOrder((prev) => ({ ...prev, referenceNumber: reference }));
@@ -169,7 +183,8 @@ export const POSContextProvider = ({ children }: POSContextProvider) => {
         setTender,
         setReferenceNumber,
         setCustomerName,
-        ResetData
+        ResetData,
+        setMutatePos,
       }}
     >
       {children}

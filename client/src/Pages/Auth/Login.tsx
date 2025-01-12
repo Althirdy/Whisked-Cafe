@@ -13,20 +13,26 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const { setToken } = useStateContext();
+  const { setToken, setUser } = useStateContext();
   const [error, setError] = useState<any>();
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  
+
     const result = await Auth_Login(formData);
     if (!result.success) {
       setError(result.message);
       error?.invalid && toast.error(error?.invalid);
     } else {
       setToken(result.token);
-      navigate("/dashboard");
+      setUser(result.user);
+      if (result.user?.role == "Customer") {
+        console.log("Customer");
+        return;
+      } else {
+        navigate("/dashboard");
+      }
     }
   };
 

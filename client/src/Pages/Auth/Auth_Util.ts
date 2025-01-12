@@ -11,9 +11,8 @@ export const Auth_Login = async ({ email, password }: login) => {
       }
     );
     const token = response.data.token;
-
-    localStorage.setItem("ACCESS_TOKEN", token); // Store the token in localStorage
-    return { success: true, token }; // Return success and token
+    const user = response.data.user;
+    return { success: true, token, user }; // Return success and token
   } catch (error: any) {
     if (error.response && error.response.data) {
       return { success: false, message: error.response.data };

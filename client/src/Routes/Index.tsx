@@ -10,25 +10,42 @@ import Reports from "../Pages/Owner/Reports";
 import Home from "../Pages/Home";
 import Protected from "./Protected";
 import Menu from "../Pages/Owner/Menu";
+import Customer from "./Customer";
+import ProtectedNotCustomer from "./ProtectedNotCustomer";
+import Guest from "./Guest";
+import CustomerLayout from "../Components/Layout/CustomerLayout";
+import CustomerMenu from "../Pages/Customer/CustomerMenu";
+import CustomerOrder from "../Pages/Customer/CustomerOrder";
+import OnlineOrders from "../Pages/Owner/OnlineOrders";
 
 const Router = () => {
   return (
     <Routes>
-      <Route element={<GuestLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/menu" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+      <Route element={<Guest />}>
+        <Route element={<GuestLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
+      </Route>
+      <Route path="/customer" element={<Customer />}>
+        <Route path="" element={<CustomerLayout />}>
+          <Route index element={<CustomerMenu />} />
+          <Route path="/customer/order" element={<CustomerOrder />} />
+        </Route>
       </Route>
 
-      <Route element={<OwnerDefaultLayout />}>
-        <Route element={<Protected />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/employee" element={<Employee />} />
-          <Route path="/meals" element={<Menu />} />
+      <Route element={<ProtectedNotCustomer />}>
+        <Route element={<OwnerDefaultLayout />}>
+          <Route element={<Protected />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/employee" element={<Employee />} />
+            <Route path="/meals" element={<Menu />} />
+          </Route>
+          <Route path="/pos" element={<Pos />} />
+          <Route path="/online" element={<OnlineOrders />} />
+          <Route path="/reports" element={<Reports />} />
         </Route>
-        <Route path="/pos" element={<Pos />} />
-        <Route path="/reports" element={<Reports />} />
       </Route>
     </Routes>
   );

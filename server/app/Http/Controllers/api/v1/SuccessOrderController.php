@@ -57,7 +57,7 @@ class SuccessOrderController extends Controller
             'invoiceNo' => $invoiceNo,
             'customerName' => $request['customerName'],
             'orderType' => $request['orderType'],
-            'meals' => json_encode($request['meals']),
+            'meals' => $request['meals'],
             'paymentMethod' => $request['paymentMethod'],
             'referenceNumber' => $request['referenceNumber'],
             'totalPrice' => $request['totalPrice'],
