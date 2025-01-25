@@ -1,24 +1,37 @@
 import { useState } from "react";
 import { Eye, EyeOff, Heading1 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputField from "../../Components/InputField";
 import Modal from "../../Components/Modal";
+import { Auth_Register } from "./Auth_Util";
+import { useStateContext } from "../../Contexts/ContextProvider";
 
 export default function Register() {
   const [isOpen, setIsOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [error, setError] = useState<any>();
   const [formData, setFormData] = useState({
-    fullname: "",
-    phone: "",
+    fullName: "",
+    phoneNumber: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    password_confirmation: "",
     agreeToTerms: false,
   });
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const { setToken, setUser } = useStateContext();
+  const navigate = useNavigate();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const res = await Auth_Register(formData);
+    if (res.success) {
+      setError(null);
+      setToken(res.token);
+      setUser(res.user);
+      navigate("/customer");
+    } else {
+      setError(res.message?.errors);
+    }
   };
 
   return (
@@ -38,20 +51,32 @@ export default function Register() {
 
             <form onSubmit={handleSubmit} className="space-y-3">
               <InputField
-                value={formData.fullname}
+                value={formData.fullName}
                 onChange={(e) =>
-                  setFormData({ ...formData, fullname: e.target.value })
+                  setFormData({ ...formData, fullName: e.target.value })
                 }
                 label="FullName"
               />
+              {error?.fullName &&
+                error?.fullName.map((item, index) => (
+                  <span className="text-sm text-red-600" key={index}>
+                    {item}
+                  </span>
+                ))}
               <InputField
-                value={formData.phone}
+                value={formData.phoneNumber}
                 onChange={(e) =>
-                  setFormData({ ...formData, phone: e.target.value })
+                  setFormData({ ...formData, phoneNumber: e.target.value })
                 }
                 label="Phone No."
                 placeholder="+63"
               />
+              {error?.phoneNumber &&
+                error?.phoneNumber.map((item, index) => (
+                  <span className="text-sm text-red-600" key={index}>
+                    {item}
+                  </span>
+                ))}
               <InputField
                 value={formData.email}
                 onChange={(e) =>
@@ -59,6 +84,12 @@ export default function Register() {
                 }
                 label="Email"
               />
+              {error?.email &&
+                error?.email.map((item, index) => (
+                  <span className="text-sm text-red-600" key={index}>
+                    {item}
+                  </span>
+                ))}
               {/* Password */}
               <div className="space-y-2">
                 <label
@@ -71,7 +102,6 @@ export default function Register() {
                   <input
                     id="password"
                     type={showPassword ? "text" : "password"}
-                    required
                     className="w-full rounded-lg border border-gray-300 p-2 text-sm pr-10 focus:border-brown-500 focus:outline-none focus:ring-1 focus:ring-brown-500"
                     value={formData.password}
                     onChange={(e) =>
@@ -90,6 +120,15 @@ export default function Register() {
                     )}
                   </button>
                 </div>
+                {error?.password &&
+                  error?.password.map((item, index) => (
+                    <>
+                      <span className="text-sm text-red-600" key={index}>
+                        {item}
+                      </span>
+                      <br />
+                    </>
+                  ))}
               </div>
               {/* ConfirmPassword */}
               <div className="space-y-2">
@@ -103,13 +142,12 @@ export default function Register() {
                   <input
                     id="confirmPassword"
                     type={showConfirmPassword ? "text" : "password"}
-                    required
                     className="w-full rounded-lg border border-gray-300 p-2 text-sm pr-10 focus:border-brown-500 focus:outline-none focus:ring-1 focus:ring-brown-500"
-                    value={formData.confirmPassword}
+                    value={formData.password_confirmation}
                     onChange={(e) =>
                       setFormData({
                         ...formData,
-                        confirmPassword: e.target.value,
+                        password_confirmation: e.target.value,
                       })
                     }
                   />
@@ -202,9 +240,7 @@ export default function Register() {
             title="Privacy and Data Protection:"
             description="Your privacy is important to us. We collect personal information solely for processing your order. This information will not be shared with third parties without your consent, except where necessary for payment."
           />
-             <TermsAndCondition
-            title="Thank you for your understanding and cooperation."
-          />
+          <TermsAndCondition title="Thank you for your understanding and cooperation." />
         </div>
       </Modal>
     </>

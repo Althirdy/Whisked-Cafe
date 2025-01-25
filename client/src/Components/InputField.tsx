@@ -8,6 +8,7 @@ type InputField_T = {
   required?: boolean;
   type?: string;
   maxLength?: number;
+  name?: string;
   onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
@@ -18,9 +19,9 @@ function InputField({
   placeholder,
   required,
   type = "text",
-  onKeyPress
+  onKeyPress,
+  name,
 }: InputField_T) {
-  
   return (
     <div className="space-y-1">
       {label && (
@@ -32,6 +33,7 @@ function InputField({
         </label>
       )}
       <input
+        name={name}
         id={label}
         type={type}
         required={required}

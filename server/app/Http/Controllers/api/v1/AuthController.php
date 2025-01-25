@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,6 +32,9 @@ class AuthController extends Controller
             return response()->json(['invalid' => 'Invalid credentials'], 401);
         }
 
+        $user->isOnline = true;
+        $user->save();
+
         $token = $user->createToken('WhiskedCafe')->plainTextToken;
 
         return response()->json([
@@ -48,8 +52,35 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
+        $request->user()->update(['isOnline' => false]);
+
         return response()->json([
             'message' => 'Logged out from all devices successfully'
         ], 200);
+    }
+
+    public function register(RegisterRequest $request)
+    {
+        $data = [
+            'fullName' => $request['fullName'],
+            'phoneNumber' => $request['phoneNumber'],
+            'role' => 'Customer',
+            'email' => $request['email'],
+            'password' => Hash::make($request['password'])
+        ];
+
+        $save = User::create($data);
+        if ($save) {
+            $token = $save->createToken('WhiskedCafe')->plainTextToken;
+            return response()->json([
+                'message' => 'User registered successfully.',
+                'user' => $save,
+                'token' => $token,
+            ], 201);
+        } else {
+            return response()->json([
+                'error' => 'User registration failed. Please try again later.'
+            ], 500);
+        }
     }
 }

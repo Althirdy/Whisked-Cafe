@@ -19,7 +19,7 @@ class SuccessOrderResource extends JsonResource
             'invoiceNo' => $this->invoiceNo,
             'customerName' => $this->customerName,
             'orderType' => $this->orderType,
-            'meals' => json_decode($this->meals), 
+            'meals' => $this->meals, 
             'paymentMethod' => $this->paymentMethod,
             'referenceNumber' => $this->referenceNumber,
             'tender' => $this->tender,

@@ -22,10 +22,9 @@ class OnlineOrdersController extends Controller
             $query->where('customerId', $customerId);
         }
 
-        // Filter by date if provided
-        if ($date = $request->input('date')) {
-            $query->whereDate('created_at', $date);
-        }
+        // Filter by date (default to today if not provided)
+        $date = $request->input('date', now()->toDateString());
+        $query->whereDate('created_at', $date);
 
         // Apply search query if provided
         if ($search = $request->input('query')) {

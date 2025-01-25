@@ -28,7 +28,7 @@ export default function Login() {
       setToken(result.token);
       setUser(result.user);
       if (result.user?.role == "Customer") {
-        console.log("Customer");
+        navigate("/customer")
         return;
       } else {
         navigate("/dashboard");

@@ -39,3 +39,22 @@ export const Auth_Logout = async () => {
     return { status: false };
   }
 };
+
+export const Auth_Register = async (data: any) => {
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/v1/register`,
+      {
+        ...data,
+      }
+    );
+    const token = response.data.token;
+    const user = response.data.user;
+    return { success: true, token, user }; // Return success and token
+  } catch (error: any) {
+    if (error.response && error.response.data) {
+      return { success: false, message: error.response.data };
+    }
+    return { success: false, message: "An unexpected error occurred." };
+  }
+};

@@ -20,8 +20,7 @@ class EmployeeController extends Controller
 
         $query = $request->input('query');
 
-        $employees = User::whereNotNull('role')
-            ->where('role', '!=', 'Owner')
+        $employees = User::whereIn('role', ['Cashier', 'Assistant Manager'])
             ->where('isActive', true);
 
         // Apply filtering if 'query' parameter is provided

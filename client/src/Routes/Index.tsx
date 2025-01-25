@@ -17,6 +17,7 @@ import CustomerLayout from "../Components/Layout/CustomerLayout";
 import CustomerMenu from "../Pages/Customer/CustomerMenu";
 import CustomerOrder from "../Pages/Customer/CustomerOrder";
 import OnlineOrders from "../Pages/Owner/OnlineOrders";
+import Inventory from "../Pages/Owner/Inventory";
 
 const Router = () => {
   return (
@@ -41,6 +42,7 @@ const Router = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/employee" element={<Employee />} />
             <Route path="/meals" element={<Menu />} />
+            <Route path="/inventory" element={<Inventory/>}/>
           </Route>
           <Route path="/pos" element={<Pos />} />
           <Route path="/online" element={<OnlineOrders />} />
